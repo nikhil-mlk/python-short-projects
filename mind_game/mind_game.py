@@ -7,7 +7,6 @@ Requirement:
 5. Program will show to user that at which try (1,2,3,4,5,6...10), he/she finds the correct pattern.
 6. If after 10 tries pattern not match then Bye message should appear.
 '''
-import sys
 default_colors_pattern=['B','O','G','Y','R']
 
 def enter_pattern():
@@ -16,11 +15,10 @@ def enter_pattern():
     unmatching_position=0
     k=1
     while k<=5:
-
         client_pattern = input('Enter the pattern: ').split()
         if default_colors_pattern == client_pattern:
             print(f'Your pattern {client_pattern} matched at {k} point')
-            sys.exit()
+            break
         else:
             for a, b in zip(default_colors_pattern, client_pattern):
                 if a == b:
