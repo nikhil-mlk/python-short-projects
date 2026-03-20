@@ -8,8 +8,40 @@ Requirement:
 6. If after 10 tries pattern not match then Bye message should appear.
 '''
 
-list_of_colors=['B','O','G','Y','R']
+list_of_colors=('B','O','G','Y','R')
 
-user_pattern=[]
-def enter_pattern():
-    pass
+def enter_pattern(*pattern):
+        print('Enter the pattern: ')
+        client_tuple=tuple(input(pattern))
+        return client_tuple
+
+
+def pattern_comparison():
+    i=0
+    while i<=9:
+        tup=enter_pattern()
+        if tup==list_of_colors:
+            print(f'You have successfully guess the pattern {tup} at {i} time')
+            break;
+        else:
+            pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
