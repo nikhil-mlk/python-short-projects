@@ -10,7 +10,6 @@ The system should have the following functionalities:
 5. Update Grade: Allow the user to update a student's grade by entering their name and the new grade.
 6. Exit: Allow the user to exit the program.
 '''
-
 import sys
 student_grades={}
 def add_grade():
