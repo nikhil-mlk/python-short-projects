@@ -20,19 +20,23 @@ str1=('I love programming very much')
 str2=' ...'
 n=14
 k=n-4
+j=0
 
 str3=str1[0:k]  # k = 10
 print(str3)
 
-if str3[k-2]==' ' or str3[k-2]=='':
-    j=k-1
 
-    while str3[j]!='':
-        if str3[j]=='':
+
+if str3[k-2]!=' ' or str3[k-2]!='':
+    j=k-1
+    f=0
+
+    while str3[j]!=' ':
+        if str3[j]==' ':
             f=j
             break
         j=j-1
-print(j)
+    print(f)
 
 
 
