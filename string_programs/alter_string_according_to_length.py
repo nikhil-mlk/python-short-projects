@@ -11,32 +11,51 @@ Input:  str = "I love programming very much", n = 10
 Output: "I love ..."
 
 Input:  str = "Hello world from AI", n = 15
+
+
 Output: "Hello world ..."
-
 '''
+# Hello world from AI
+# Hello world fro    n=15
+
+# Hello World    11
+#
+def string_creation():
+    str1=input('Enter the sentence: ')
+    length=int(input('Enter the length: '))
+    str2=' ...'
+    if len(str1)<=length:
+        return str1
+    else:
+        new_str = str1[0:length - 4]
+        last_index = len(new_str) - 1
+
+        if new_str[last_index - 1] == ' ':
+            cap_str = new_str[last_index - 1:len(new_str)]
+            final_string1 = new_str.replace(cap_str, str2)
+            return final_string1
+
+        elif new_str[last_index]==' ':
+            cap_str3=new_str[last_index]
+            final_string3 = new_str.replace(cap_str3, str2)
+            return final_string3
 
 
-str1=('I love programming very much')
-str2=' ...'
-n=14
-k=n-4
-j=0
-
-str3=str1[0:k]  # k = 10
-print(str3)
 
 
 
-if str3[k-2]!=' ' or str3[k-2]!='':
-    j=k-1
-    f=0
+res=string_creation()
+print(res)
 
-    while str3[j]!=' ':
-        if str3[j]==' ':
-            f=j
-            break
-        j=j-1
-    print(f)
+
+
+
+
+
+
+
+
+
 
 
 
