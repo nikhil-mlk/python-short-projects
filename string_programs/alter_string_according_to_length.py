@@ -13,30 +13,35 @@ Output: "I love ..."
 Input:  str = "Hello world from AI", n = 15
 Output: "Hello world ..."
 
+I love programming      very much
+I love pro              gramming very much
 '''
 
+def alter_string_according_to_length():
+    add_string=' ...'
+    user_string=input('Enter the string: ')
+    length=int(input('Enter the length: '))
 
-str1=('I love programming very much')
-str2=' ...'
-n=14
-k=n-4
-j=0
+    if len(user_string)<=length:
+        return user_string
 
-str3=str1[0:k]  # k = 10
-print(str3)
+    main_list=list(user_string)
+    secondary_list=list(user_string[0:len])
+
+    last_value_main=main_list[-1]
+    last_value_secondary=secondary_list[-1]
+
+    if last_value_main!=last_value_secondary:
+        pass
 
 
 
-if str3[k-2]!=' ' or str3[k-2]!='':
-    j=k-1
-    f=0
 
-    while str3[j]!=' ':
-        if str3[j]==' ':
-            f=j
-            break
-        j=j-1
-    print(f)
+
+
+
+
+
 
 
 
