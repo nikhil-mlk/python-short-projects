@@ -33,6 +33,7 @@ def alter_string_according_to_length():
 
     if last_value_main!=last_value_secondary:
         pass
+    pass
 
 
 
