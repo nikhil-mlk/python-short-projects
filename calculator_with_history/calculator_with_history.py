@@ -28,11 +28,7 @@ if user selects Clear:
 if user selects Exit:
     exit the system
 '''
-
 import sys
-from unittest import case
-
-
 def enter_expression():
     result=0
     user_expression=input("Enter expression: ")
@@ -55,12 +51,9 @@ def enter_expression():
     final_expression=user_expression+'='+str(result)
     return final_expression
 
-
-
-
 def add_expression_to_file():
-    pass
-
+    with open('calculator.txt','a') as f:
+        f.write(enter_expression()+'\n')
 def view_history():
     with open('calculator.txt','r') as f:
         data=f.read()
@@ -83,6 +76,19 @@ def clear_history():
 def exit_system():
     print('*** Thank You for using this Application ***')
     sys.exit()
+
+while True:
+    choice=input('Choose your options: 1: Enter Expression 2: View History 3: Clear History 4: Exit')
+    match choice:
+        case '1':
+            enter_expression()
+            add_expression_to_file()
+        case '2':
+            view_history()
+        case '3':
+            clear_history()
+        case '4':
+            exit_system()
 
 
 
