@@ -50,9 +50,10 @@ def enter_expression():
             result=first_digit*last_digit
         case '/':
             if last_digit == 0:
-                raise Exception('Cannot divide by zero')
+                print('The number cannot be divided by zero')
+                return  # stop execution, don't proceed further
             else:
-                result=first_digit/last_digit
+                result = first_digit / last_digit
 
     final_expression=user_expression+'='+str(result)
     # Add Expression to file
