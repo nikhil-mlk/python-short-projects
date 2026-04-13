@@ -32,13 +32,15 @@ import sys
 def enter_expression():
     result=0
     user_expression=input("Enter expression: ")
-    if len(user_expression)>3:
+    if len(user_expression)>3 or len(user_expression)<3:
         print('Invalid Expression. Please enter expression in format: number operator number (e.g. 5+8)')
         enter_expression()
-    lst1=user_expression.split()
+
+    operator = user_expression[1]
+    lst1=user_expression.split(operator)
     first_digit=int(lst1[0])
     last_digit=int(lst1[-1])
-    operator=lst1[1]
+
     match operator:
         case '+':
             result=first_digit+last_digit
@@ -47,8 +49,15 @@ def enter_expression():
         case '*':
             result=first_digit*last_digit
         case '/':
-            result=first_digit/last_digit
+            if last_digit == 0:
+                raise Exception('Cannot divide by zero')
+            else:
+                result=first_digit/last_digit
+
     final_expression=user_expression+'='+str(result)
+    # Add Expression to file
+    with open('calculator.txt','a') as f:
+        f.write(final_expression+'\n')
     return final_expression
 
 def add_expression_to_file():
@@ -78,11 +87,11 @@ def exit_system():
     sys.exit()
 
 while True:
-    choice=input('Choose your options: 1: Enter Expression 2: View History 3: Clear History 4: Exit')
+    choice=input('Choose your options: 1 -> Enter Expression 2 -> View History 3 -> Clear History 4 -> Exit')
     match choice:
         case '1':
             enter_expression()
-            add_expression_to_file()
+            #add_expression_to_file()
         case '2':
             view_history()
         case '3':
