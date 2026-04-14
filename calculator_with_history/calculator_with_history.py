@@ -32,34 +32,34 @@ import sys
 def enter_expression():
     result=0
     user_expression=input("Enter expression: ")
-    if len(user_expression)>3 or len(user_expression)<3:
+    if len(user_expression)!=3:
         print('Invalid Expression. Please enter expression in format: number operator number (e.g. 5+8)')
-        enter_expression()
 
-    operator = user_expression[1]
-    lst1=user_expression.split(operator)
-    first_digit=int(lst1[0])
-    last_digit=int(lst1[-1])
+    else:
+        operator = user_expression[1]
+        lst1 = user_expression.split(operator)
+        first_digit = int(lst1[0])
+        last_digit = int(lst1[-1])
 
-    match operator:
-        case '+':
-            result=first_digit+last_digit
-        case '-':
-            result=first_digit-last_digit
-        case '*':
-            result=first_digit*last_digit
-        case '/':
-            if last_digit == 0:
-                print('The number cannot be divided by zero')
-                return  # stop execution, don't proceed further
-            else:
-                result = first_digit / last_digit
+        match operator:
+            case '+':
+                result = first_digit + last_digit
+            case '-':
+                result = first_digit - last_digit
+            case '*':
+                result = first_digit * last_digit
+            case '/':
+                if last_digit == 0:
+                    print('The number cannot be divided by zero')
+                    return  # stop execution, don't proceed further
+                else:
+                    result = first_digit / last_digit
 
-    final_expression=user_expression+'='+str(result)
-    # Add Expression to file
-    with open('calculator.txt','a') as f:
-        f.write(final_expression+'\n')
-    return final_expression
+        final_expression = user_expression + '=' + str(result)
+        # Add Expression to file
+        with open('calculator.txt', 'a') as f:
+            f.write(final_expression + '\n')
+        return final_expression
 
 def add_expression_to_file():
     with open('calculator.txt','a') as f:
@@ -92,13 +92,14 @@ while True:
     match choice:
         case '1':
             enter_expression()
-            #add_expression_to_file()
         case '2':
             view_history()
         case '3':
             clear_history()
         case '4':
             exit_system()
+        case _:
+            print('Invalid Option. Please enter again')
 
 
 
