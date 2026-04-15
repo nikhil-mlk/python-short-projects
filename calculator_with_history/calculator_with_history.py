@@ -34,7 +34,7 @@ def enter_expression():
     user_expression=input("Enter expression: ")
     if len(user_expression)>3 or len(user_expression)<3:
         print('Invalid Expression. Please enter expression in format: number operator number (e.g. 5+8)')
-        enter_expression()
+
 
     operator = user_expression[1]
     lst1=user_expression.split(operator)
