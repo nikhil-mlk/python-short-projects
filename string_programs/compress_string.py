@@ -12,33 +12,29 @@ Idea:
 iterate string and place characters in dictionary along with their values (number of time occurence)
 
 '''
-user_string='aaabbcc'
+user_string='aaabbcca'
 final_str=''
 i=0
 j=0
 k=1
-
-var=True
 while j<len(user_string) and i<len(user_string):
-    if j==len(user_string)-1:
-        if user_string[j-1]!=user_string[j]:
-            final_str=final_str+user_string[j]+'1'
-            break
-        else:
-            pass
-
-
-
-
-
-    j+=1
+    if i!=len(user_string)-1 and j!=len(user_string)-1:
+        j+=1
     if user_string[j]==user_string[i]:
-        k+=1
+        if j==len(user_string)-1 and i==len(user_string)-2:
+            k += 1
+            final_str = final_str + user_string[i] + str(k)
+            break
+        elif j==len(user_string)-1 and i==len(user_string)-1:
+            k=1
+            final_str=final_str + user_string[i] + str(k)
+            break
+        k += 1
+
     elif user_string[j]!=user_string[i]:
         final_str=final_str+user_string[i]+str(k)
         k=1
         i=j
-
 print(final_str)
 
 
