@@ -17,17 +17,31 @@ final_str=''
 i=0
 j=0
 k=1
-while j<len(user_string):
 
-    j += 1
+var=True
+while j<len(user_string) and i<len(user_string):
+    if j==len(user_string)-1:
+        if user_string[j-1]!=user_string[j]:
+            final_str=final_str+user_string[j]+'1'
+            break
+        else:
+            pass
 
-    if user_string[j] == user_string[i]:
-        k += 1
+
+
+
+
+    j+=1
+    if user_string[j]==user_string[i]:
+        k+=1
     elif user_string[j]!=user_string[i]:
         final_str=final_str+user_string[i]+str(k)
-        i=j
         k=1
+        i=j
+
 print(final_str)
+
+
 
 
 
