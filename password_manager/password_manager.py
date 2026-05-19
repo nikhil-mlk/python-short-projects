@@ -48,14 +48,14 @@ def validate_user_and_create_file():
             print('Access Granted !!!!')
             print('Now You can start storing your credentials')
     while True:
-        choice=int(input('What you want to do next? : 1->  Add Credentials and 2->: View Credentials and 3-> Exit: '))
+        choice=input('What you want to do next? : 1->  Add Credentials and 2->: View Credentials and 3-> Exit: ')
         match choice:
-            case 1:
+            case '1':
                 user_n = input('Enter new User Name: ')
                 user_p = input('Enter new password: ')
                 with open(user+'.txt', 'a') as f:
                     f.write(user_n + ' | ' + user_p + '\n')
-            case 2:
+            case '2':
                 try:
                     with open(user+'.txt', 'r') as f:
                         length_of_text = len(f.read())
@@ -64,9 +64,9 @@ def validate_user_and_create_file():
                         else:
                             print(f.read())
                 except FileNotFoundError:
-                    print('File Not found')
+                    print('File Not found. Enter records first')
 
-            case 3:
+            case '3':
                 print('--- Thank you for choosing Password Management application -----')
                 sys.exit()
 

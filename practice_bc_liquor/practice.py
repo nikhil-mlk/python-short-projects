@@ -158,7 +158,6 @@ def first_duplicate_element(lst):
 result=first_duplicate_element([6, 3, 9, 5, 3, 2])
 print(result)
 
-
 def move_zeros_in_end():
     lst1 = [0, 1, 0, 3, 12]
     zero_list=[]
