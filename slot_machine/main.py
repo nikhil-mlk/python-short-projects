@@ -2,7 +2,7 @@
 Requirements:
 Ask user to deposit the money in order to play the game (value should be from $10-$100)
 Ask user how many pay spins he/she wants (value should be between 1-5)
-Ask user before the spin that how much he wants to bet on spin
+Ask user before the spin that how much he wants to bet on spin (Minimum betting amount is $2)
 
 Imp: On every spin $1 will be credited to Casino (irrespective user win or not)
 
@@ -19,6 +19,10 @@ Weighs:
     ⭐: 6
     💎: 10
     7️⃣: 20
+
+
+
+
 
 Combinations:
 if  🍒 🍒 🍒 ---> bet amount * 3
@@ -42,6 +46,7 @@ BET_AMOUNT=0
 MAX_SPIN=0
 
 def player_deposit():
+    global PLAYER_DEPOSIT
     while True:
         amount = input('Enter the amount you want to deposit ($): ')
         if amount.isdigit():
@@ -56,6 +61,8 @@ def player_deposit():
     return PLAYER_DEPOSIT
 
 def pay_lines():
+    global MAX_LINES
+    global MAX_SPIN
     while True:
         number_of_lines = input(f'How many lines you want to play? (1-{MAX_LINES}):')
         if number_of_lines.isdigit:
@@ -70,6 +77,8 @@ def pay_lines():
     return MAX_SPIN
 
 def betting_amount():
+    global BET_AMOUNT
+    global PLAYER_DEPOSIT
     while True:
         amount = input('Enter the betting amount for your spin: ')
         if amount.isdigit():
@@ -79,6 +88,8 @@ def betting_amount():
                 print(f'Your account balance is : ${PLAYER_DEPOSIT}. Your betting amount should not exceed your balance.')
             elif BET_AMOUNT==PLAYER_DEPOSIT:
                 print(f'Your account balance is : ${PLAYER_DEPOSIT}. Your betting amount should at least $1 less than your balance.')
+            elif BET_AMOUNT==1:
+                print('Betting amount should be at least $2.')
             elif PLAYER_DEPOSIT==0: # Might be removed
                 print('Your account balance is : $0. You are not allowed to spin.')
                 break
@@ -87,16 +98,43 @@ def betting_amount():
         else:
             print('Please enter digit')
 
+def spin():
+    spin_result=[]
+    symbols=['🍒','🍋','🔔','⭐','💎','7️⃣']
+    dict_of_combinations={
+        ('🍒','🍒','🍒'):3,
+        ('🍋', '🍋', '🍋'):4,
+        ('🔔', '🔔', '🔔'):5,
+        ('⭐', '⭐', '⭐'):6,
+        ('💎', '💎', '💎'):10,
+        ('7️⃣', '7️⃣', '7️⃣'):20
+    }
+    for i in range(3):
+        spin_result.append(random.choice(symbols))
+
+    spin_tuple=tuple(spin_result)
+    if spin_tuple in dict_of_combinations:
+        value=dict_of_combinations.get(spin_tuple)
+        print(f'🏆 Congratulations! Your betting amount is going to {value}X 🏆')
+    elif '':
+        pass
 
 
-# def spin():
-#     spin_list=[]
-#     symbols=['🍒','🔔','💎','🍋','🍊','⭐','7️⃣']
-#     for i in rBET_AMOUNTange(2):
-#         random_symbol = random.choice(symbols)
-#         spin_list.append(random_symbol)
-#     print(spin_list)
-#     return spin_list
+
+
+
+
+
+
+
+
+
+
+    print(spin_tuple)
+
+
+
+
 
 
 
@@ -112,6 +150,8 @@ def main():
 
     bet_amount=betting_amount()
     print('Bet Amount: $', bet_amount)
+
+    spin()
 
 
 main()
