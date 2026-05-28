@@ -57,6 +57,9 @@ def player_deposit():
             print('Please enter a number.')
     return PLAYER_DEPOSIT
 
+def casino_money():
+    return CASINO_MONEY
+
 # def pay_lines():
 #     global MAX_LINES
 #     global MAX_SPIN
@@ -154,72 +157,9 @@ def spin():
         else:
             print('Press Valid Key')
 
-
-
-
-
-
-
-
-
-
-
-
-
-        # for i in range(3):
-        #     spin_result.append(random.choice(symbols))
-        # spin_tuple = tuple(spin_result)
-        #
-        # print(spin_tuple)
-        #
-        # # Calculation Logic
-        # # If all items are same
-        # if spin_tuple in dict_of_combinations:
-        #     value = dict_of_combinations.get(spin_tuple)
-        #     print(f'🏆 Congratulations! Your betting amount is going to {value}X 🏆')
-        #     PLAYER_DEPOSIT = PLAYER_DEPOSIT + (BET_AMOUNT * value)
-        #     print(f'💰 Your Deposit Balance is: ${PLAYER_DEPOSIT}')
-        #
-        # # If 2 items match
-        # elif (spin_tuple[0] == spin_tuple[1]) or (spin_tuple[1] == spin_tuple[2]) or (spin_tuple[0] == spin_tuple[2]):
-        #     print('🏆 Congratulations! Your betting amount is going to 2X 🏆')
-        #     PLAYER_DEPOSIT = PLAYER_DEPOSIT + (BET_AMOUNT * 2)
-        #     print(f'💰 Your Deposit Balance is: ${PLAYER_DEPOSIT}')
-        #
-        # # No items match
-        # else:
-        #     print('Sorry no luck this time. 😢')
-        #     PLAYER_DEPOSIT = PLAYER_DEPOSIT - BET_AMOUNT
-        #     print(f'💰 Your Deposit Balance is: ${PLAYER_DEPOSIT}')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def main():
     deposit_money=player_deposit()
     print('Deposit money: $',deposit_money)
-
-    # number_of_spins=pay_lines()
-    # print('Number of spins', number_of_spins)
-
-
-    # bet_amount=betting_amount()
-    # print('Bet Amount: $', bet_amount)
 
     spin()
 
