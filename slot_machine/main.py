@@ -60,22 +60,6 @@ def player_deposit():
 def casino_money():
     return CASINO_MONEY
 
-# def pay_lines():
-#     global MAX_LINES
-#     global MAX_SPIN
-#     while True:
-#         number_of_lines = input(f'How many lines you want to play? (1-{MAX_LINES}):')
-#         if number_of_lines.isdigit:
-#             lines=int(number_of_lines)
-#             if lines>=1 and lines<=MAX_LINES:
-#                 MAX_SPIN=lines
-#                 break
-#             else:
-#                 print('Number of lines should be between 1-5.')
-#         else:
-#             print('Please enter a digit ')
-#     return MAX_SPIN
-
 def betting_amount():
     global BET_AMOUNT
     global PLAYER_DEPOSIT

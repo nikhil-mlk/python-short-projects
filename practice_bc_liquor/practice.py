@@ -1,3 +1,8 @@
+import random
+import re
+import string
+
+
 def reverse_string(s):
    return s[::-1]
 result=reverse_string('hello world')
@@ -172,6 +177,31 @@ def move_zeros_in_end():
 
 result=move_zeros_in_end()
 print(result)
+
+
+def last_non_repeating_character():
+    str1='geeksforgeeks'
+    lst=[]
+    for i in str1:
+        if str1.count(i)==1:
+            lst.append(i)
+    if len(lst)==0:
+        print('Empty List')
+    else:
+        print(lst[len(lst)-1])
+
+last_non_repeating_character()
+
+def alphanumeric_string_of_six_characters():
+
+    str1=''
+    for i in range(6):
+        str1+=random.choice(string.ascii_letters + string.digits)
+
+    print(str1)
+
+alphanumeric_string_of_six_characters()
+
 
 
 
