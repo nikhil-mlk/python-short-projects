@@ -104,13 +104,18 @@ def login_into_atm():
     choice=int(input('Press 1-->Deposit, 2-->Withdraw, 3-->Change Pin, 4-->Mini Statement, 5-->Exit'))
     match choice:
         case 1:
-            deposit_money()
+            deposit_amount = deposit_money()
+            df.loc[df['username'] == user_name, 'deposit'] = deposit_amount
+            df.to_excel('customer_data.xlsx', index=False)
         case 2:
-            new_pin=change_pin()
+            pass
 
 
 
         case 3:
+            new_pin = change_pin()
+            df.loc[df['username'] == user_name, 'pin'] = new_pin
+            df.to_excel('customer_data.xlsx', index=False)
             pass
         case 4:
             pass
@@ -120,12 +125,13 @@ def login_into_atm():
             pass
 
 def deposit_money():
-    deposit_money=[]
+    deposit_money_list=[]
     final_deposit_total=0
     print('Denominations accepted: $5, $10, $20, $50 and $100. Max deposit allowed: $400')
     while True:
         quit=input("Press Q or q to quit. Enter any key to continue depositing money:")
         if quit=='q' or quit=='Q':
+            print('Your total deposit is: ', sum(deposit_money_list))
             break
         else:
             bill=int(input('Enter the denomination:'))
@@ -133,26 +139,27 @@ def deposit_money():
                 print('Denominations accepted: $5, $10, $20, $50 and $100. Max deposit allowed: $400')
                 continue
             else:
-                deposit_money.append(bill)
-                final_deposit_total=sum(deposit_money)
+                deposit_money_list.append(bill)
+                final_deposit_total=sum(deposit_money_list)
                 if final_deposit_total>400:
-                    print(f'The deposit exceeds the limit of $400. Hence last bill of ${deposit_money[len(deposit_money)-1]} will not deposit')
-                    deposit_money.pop(len(deposit_money)-1)
-                    print('Your total deposit is: ',sum(deposit_money))
-
+                    print(f'The deposit exceeds the limit of $400. Hence last bill of ${deposit_money_list[len(deposit_money_list)-1]} will not deposit')
+                    deposit_money_list.pop(len(deposit_money_list)-1)
+                    print('Your total deposit is: ',sum(deposit_money_list))
                     break
-    return sum(deposit_money)
+    return sum(deposit_money_list)
 
 def change_pin():
     while True:
-        user_pin = input('Enter new pin:')
+        user_pin=input('Enter new pin:')
         if not user_pin.isdigit():
             print('Pin should be 4 digit number')
         elif len(user_pin) < 4 or len(user_pin) > 4:
             print('User pin should be of 4 digits')
         else:
+            new_pin=int(user_pin)
+            print('Pin Updated Successfully')
             break
-    return user_pin
+    return new_pin
 
 
 
@@ -161,9 +168,8 @@ def change_pin():
 
 
 
-#login_into_atm()
-result=deposit_money()
-print(result)
+login_into_atm()
+
 
 
 
