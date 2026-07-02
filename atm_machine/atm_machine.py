@@ -38,10 +38,10 @@ Exit:
 Exit the system
 '''
 import random
-from unittest import case
-
-import openpyxl
 import pandas as pd
+import sys
+
+user_name=''
 
 def card_number_generator():
     card_numb=random.randint(1000000000, 9999999999)
@@ -51,7 +51,8 @@ def add_customer():
     df=pd.read_excel('customer_data.xlsx')
     cust_name=input('Enter your full name:')
     while True:
-        user_name=input('Enter your username:')
+        global user_name
+        user_name = input('Enter your username:')
         if user_name in df['username'].values:
             print('username already exists')
         else:
@@ -74,7 +75,9 @@ def add_customer():
         'Name':cust_name,
         'username':user_name,
         'pin':user_pin,
-        'cardnumber':card_number
+        'cardnumber':card_number,
+        'deposit':0,
+        'withdraw':0
     }
     df.loc[len(df)]=new_customer
     df.to_excel('customer_data.xlsx', index=False)
@@ -101,37 +104,38 @@ def login_into_atm():
             continue
 
     # Ask user what they want
-    choice=int(input('Press 1-->Deposit, 2-->Withdraw, 3-->Change Pin, 4-->Mini Statement, 5-->Exit'))
+    choice=int(input('Press 1-->Deposit, 2-->Withdraw, 3-->Change Pin, 4-->Check Balance, 5-->Exit'))
     match choice:
         case 1:
-            deposit_amount = deposit_money()
+            deposit_amount = deposit_money(user_name)
             df.loc[df['username'] == user_name, 'deposit'] = deposit_amount
             df.to_excel('customer_data.xlsx', index=False)
         case 2:
-            pass
-
-
-
+            withdraw_money(user_name)
         case 3:
             new_pin = change_pin()
             df.loc[df['username'] == user_name, 'pin'] = new_pin
             df.to_excel('customer_data.xlsx', index=False)
             pass
         case 4:
-            pass
+            print(f'Your total balance is:${df.loc[df['username'] == user_name, 'deposit'].iloc[0]}')
         case 5:
-            pass
+            print('Thank You for using ATM')
+            sys.exit()
         case _:
             pass
 
-def deposit_money():
+def deposit_money(user_name):
+    df=pd.read_excel('customer_data.xlsx')
+    existing_deposit=df.loc[df['username']==user_name,'deposit'].iloc[0]
     deposit_money_list=[]
     final_deposit_total=0
     print('Denominations accepted: $5, $10, $20, $50 and $100. Max deposit allowed: $400')
     while True:
         quit=input("Press Q or q to quit. Enter any key to continue depositing money:")
         if quit=='q' or quit=='Q':
-            print('Your total deposit is: ', sum(deposit_money_list))
+            print('You deposited $',sum(deposit_money_list))
+            print('Your total deposit amount is: $',existing_deposit + sum(deposit_money_list))
             break
         else:
             bill=int(input('Enter the denomination:'))
@@ -144,9 +148,47 @@ def deposit_money():
                 if final_deposit_total>400:
                     print(f'The deposit exceeds the limit of $400. Hence last bill of ${deposit_money_list[len(deposit_money_list)-1]} will not deposit')
                     deposit_money_list.pop(len(deposit_money_list)-1)
-                    print('Your total deposit is: ',sum(deposit_money_list))
+                    print('You deposited $',sum(deposit_money_list))
+                    print('Your total deposit amount is: $',existing_deposit+sum(deposit_money_list))
                     break
-    return sum(deposit_money_list)
+    return existing_deposit+sum(deposit_money_list)
+
+def withdraw_money(user_name):
+    df = pd.read_excel('customer_data.xlsx')
+    existing_deposit = df.loc[df['username'] == user_name, 'deposit'].iloc[0]
+    if existing_deposit<50:
+        print(f'You have ${existing_deposit} in account. You need to maintain min $50 in your account. Hence no with drawl')
+    else:
+        while True:
+            quit = input("Press Q or q to quit. Enter any key to continue With drawl money:")
+            if quit == 'q' or quit == 'Q':
+                break
+            else:
+                withdraw_amount = int(input('Enter the amount you want to with draw:'))
+                if not withdraw_amount%5==0:
+                    print('Withdraw amount must be an multiple of 5')
+                    continue
+                elif existing_deposit-withdraw_amount<50:
+                    print(f'The withdraw amount of ${withdraw_amount} is making your total deposit less than $50. Hence no with drawl. Choose another amount.')
+                    continue
+                else:
+                    print(f'Please collect you cash of ${withdraw_amount}.')
+
+                    # Currency logic
+                    # final_currency=[]
+                    # list_of_currency=[5,10,20,50,100]
+                    # for i in list_of_currency:
+                    #     if i>withdraw_amount:
+                    #         list_of_currency.remove(i)
+                    # while True:
+                    #     final_currency.append(random.choice(list_of_currency))
+                    #     if sum(final_currency)==withdraw_amount:
+                    #         print(f'List: ${final_currency}')
+                    #         break
+                    df.loc[df['username'] == user_name, 'deposit']=existing_deposit-withdraw_amount
+                    df.to_excel('customer_data.xlsx', index=False)
+                    print(f'your total balance is now:${df.loc[df['username'] == user_name, 'deposit'].iloc[0]}')
+                    break
 
 def change_pin():
     while True:
@@ -163,11 +205,6 @@ def change_pin():
 
 
 
-
-
-
-
-
 login_into_atm()
 
 
@@ -179,11 +216,3 @@ login_into_atm()
 
 
 
-def withdraw_money():
-    pass
-def change_pin():
-    pass
-def mini_statement():
-    pass
-def exit():
-    pass
